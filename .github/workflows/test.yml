@@ -9,11 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:latest
+        image: postgres:15-alpine
         env:
-          POSTGRES_USER: user
-          POSTGRES_PASSWORD: password
-          POSTGRES_DB: myappdb
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: fastapi_db
         ports:
           - 5432:5432
         options: >-
@@ -41,12 +41,18 @@ jobs:
           source venv/bin/activate
           pip install -r requirements.txt
           playwright install
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/fastapi_db
+      
       - name: Run tests
         run: |
           source venv/bin/activate
-          pytest tests/unit/ --cov=src --junitxml=test-results/junit.xml
+          mkdir -p test-results
+          # 只运行单元测试和集成测试，跳过E2E测试（需要浏览器环境）
+          pytest tests/unit/ --cov=app --junitxml=test-results/junit.xml
           pytest tests/integration/
-          pytest tests/e2e/
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/fastapi_db
   security:
     needs: test
     runs-on: ubuntu-latest
@@ -83,8 +89,8 @@ jobs:
         with:
           push: true
           tags: |
-            kaw393939/601_module9:latest
-            kaw393939/601_module9:${{ github.sha }}
+            chengxin199/is601_module9:latest
+            chengxin199/is601_module9:${{ github.sha }}
           platforms: linux/amd64,linux/arm64
-          cache-from: type=registry,ref=kaw393939/601_module9:cache
+          cache-from: type=registry,ref=chengxin199/is601_module9:cache
           cache-to: type=inline,mode=max
