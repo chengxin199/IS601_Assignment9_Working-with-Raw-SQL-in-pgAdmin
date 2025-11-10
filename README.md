@@ -1,5 +1,7 @@
 # 📦 Project Setup
 
+🐳 **Docker Hub Repository**: [chengxin199/is601_module9](https://hub.docker.com/repository/docker/chengxin199/is601_module9/general)
+
 ---
 
 # 🧩 1. Install Homebrew (Mac Only)
@@ -182,7 +184,32 @@ pip install -r requirements.txt
 - [Install Docker Desktop for Mac](https://www.docker.com/products/docker-desktop/)
 - [Install Docker Desktop for Windows](https://www.docker.com/products/docker-desktop/)
 
-## Build Docker Image
+## Docker Repository
+
+🐳 **Pre-built Docker Image**: [chengxin199/is601_module9](https://hub.docker.com/r/chengxin199/is601_module9)
+
+You can pull and run the pre-built image directly:
+
+```bash
+# Pull the image
+docker pull chengxin199/is601_module9:latest
+
+# Run the FastAPI calculator
+docker run -p 8080:8000 chengxin199/is601_module9:latest
+```
+
+Or use the full Docker Compose setup:
+
+```bash
+docker compose up --build
+```
+
+This will start:
+- FastAPI Calculator App: http://localhost:8080
+- PostgreSQL Database
+- PGAdmin: http://localhost:5050
+
+## Build Docker Image (Development)
 
 ```bash
 docker build -t <image-name> .
@@ -262,3 +289,4 @@ Then submit the GitHub repository link as instructed.
 - [Python Downloads](https://www.python.org/downloads/)
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 - [GitHub SSH Setup Guide](https://docs.github.com/en/authentication/connecting-to-github-with-ssh)
+- [🐳 Docker Hub Repository: chengxin199/is601_module9](https://hub.docker.com/r/chengxin199/is601_module9)
