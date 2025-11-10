@@ -48,7 +48,6 @@ jobs:
         run: |
           source venv/bin/activate
           mkdir -p test-results
-          # 只运行单元测试和集成测试，跳过E2E测试（需要浏览器环境）
           pytest tests/unit/ --cov=app --junitxml=test-results/junit.xml
           pytest tests/integration/
         env:
